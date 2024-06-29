@@ -19,3 +19,9 @@ app.use('/api/shops', shopRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('Health check OK');
+});
