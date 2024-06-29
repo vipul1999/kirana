@@ -2,14 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const shopRoutes = require('./routes/shops');
-const express = require('express');
 const cors = require('cors');
 
 // Use CORS middleware
-app.use(cors());
+
 dotenv.config();
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGO_URI, {
