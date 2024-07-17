@@ -4,7 +4,14 @@ const router = express.Router();
 
 // Get all shops
 router.get('/', async (req, res) => {
-  const shops = await Shop.find();
+  let query = {}; // Initialize an empty query object
+
+  // Check if there is a 'category' query parameter
+  if (req.query.category) {
+    query.services = req.query.category; // Add category filter to the query
+  }
+
+  const shops = await Shop.find(query);
   res.json(shops);
 });
 
