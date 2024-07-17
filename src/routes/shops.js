@@ -61,5 +61,24 @@ router.post('/:shopId/rate', async (req, res) => {
   }
 });
 
+router.get('/categories', async (req, res) => {
+  try {
+    // Use aggregate to get distinct categories from the services array
+    const categories = await Shop.aggregate([
+      { $unwind: '$services' }, // Unwind the services array
+      { $group: { _id: '$services' } }, // Group by service category
+      { $sort: { _id: 1 } } // Optional: Sort categories alphabetically
+    ]);
+
+    // Map to get an array of category strings
+    const categoryList = categories.map(category => category._id);
+
+    res.json(categoryList);
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = router;
