@@ -73,10 +73,21 @@ router.get('/categories', async (req, res) => {
     // Map to get an array of category strings
     const categoryList = categories.map(category => category._id);
 
-    res.json(categoryList);
+    // Standardized response structure
+    const response = {
+      status: 'success',
+      message: 'Categories fetched successfully',
+      data: categoryList
+    };
+
+    res.json(response);
   } catch (error) {
     console.error('Error fetching categories:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal Server Error',
+      data: null
+    });
   }
 });
 
