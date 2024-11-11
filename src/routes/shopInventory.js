@@ -39,12 +39,6 @@ router.get('/:shopId/inventory', async (req, res) => {
     const { shopId } = req.params;
   
     try {
-      // Find the Shop by its ID
-      const shop = await Shop.findById(shopId);
-      if (!shop) {
-        return res.status(404).json({ error: 'Shop not found' });
-      }
-  
       // Find all inventory items that belong to the shop
       const inventoryItems = await ShopInventory.find({ shop: shopId });
   
@@ -53,7 +47,7 @@ router.get('/:shopId/inventory', async (req, res) => {
       }
   
       // Send the inventory items back in the response
-      res.json({ shop, inventoryItems });
+      res.json({ inventoryItems });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'An error occurred while fetching inventory' });
