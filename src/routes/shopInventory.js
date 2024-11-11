@@ -23,6 +23,7 @@ router.post('/:shopId/inventory', async (req, res) => {
       shop: shop._id // Link inventory item to the shop
     });
 
+    console.log(inventoryItem);
     await inventoryItem.save(); // Save inventory item
 
     // Send success response
