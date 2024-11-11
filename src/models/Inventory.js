@@ -5,7 +5,7 @@ const inventorySchema = new mongoose.Schema({
     quantity: Number,
     price: Number,
     category: String,
-    shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop' }
+    shopId: String
   });
   
 const Inventory = mongoose.model('Inventory', inventorySchema);
