@@ -1,14 +1,40 @@
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    isDeleted: { type: Boolean, default: false },
-    createdAt: { type: Date, default: Date.now },
-  });
-  
+const taskSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true, // Ensure each task has a unique identifier
+  },
+  text: {
+    type: String,
+    required: true, // Task description
+  },
+  completed: {
+    type: Boolean,
+    default: false, // Indicates if the task is completed
+  },
+});
 
-  
-const Note = mongoose.model('Note', noteSchema);
+const noteSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true, // Note title
+    },
+    tasks: {
+      type: [taskSchema], // Array of tasks
+      default: [],
+    },
+    completed: {
+      type: Boolean,
+      default: false, // Overall completion status of the note
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false, // Indicates if the note is in the trash
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = Note;
+module.exports = mongoose.model('Note', noteSchema);
