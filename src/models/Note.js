@@ -21,6 +21,10 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: true, // Note title
     },
+    id: {
+      type: Number,
+      required: true, // Ensure each task has a unique identifier
+    },
     tasks: {
       type: [taskSchema], // Array of tasks
       default: [],
